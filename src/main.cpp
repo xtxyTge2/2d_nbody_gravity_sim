@@ -9,10 +9,16 @@ int main(int argc, char** argv) {
 	sf::VideoMode video_mode = sf::VideoMode::getDesktopMode();
 	sf::RenderWindow window(video_mode, "2D n-body simulation");
 	
-	constexpr unsigned int NUMBER_OF_PARTICLES = 1000;
-	ParticleSystem particle_system(video_mode.size.x, video_mode.size.y);
-	particle_system.create_random_particles(NUMBER_OF_PARTICLES);
 
+	bool run_test_case = false;
+	ParticleSystem particle_system(video_mode.size.x, video_mode.size.y);
+	if (run_test_case) {
+		Vec2d screen_offset = { 0.5f * video_mode.size.x, 0.5f * video_mode.size.y };
+		particle_system.run_simple_system(screen_offset);
+	} else {
+		constexpr unsigned int NUMBER_OF_PARTICLES = 10;
+		particle_system.create_random_particles(NUMBER_OF_PARTICLES);
+	}
 	double dt = 0.0f;
 	sf::Clock timer;
 	int iteration = 0;
